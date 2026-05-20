@@ -1,0 +1,57 @@
+// src/components/layout/Sidebar.tsx
+import Link from 'next/link';
+import { Home, ShoppingBag, Ticket, Sword, MessageSquare, Settings, LogOut } from 'lucide-react';
+
+const menuItems = [
+  { name: 'Dashboard', href: '/', icon: Home },
+  { name: 'Buy Pets', href: '/market/pets', icon: ShoppingBag },
+  { name: 'Tickets', href: '/market/tickets', icon: Ticket },
+  { name: 'Items', href: '/market/items', icon: Sword },
+  { name: 'Community', href: '/community', icon: MessageSquare },
+  { name: 'Settings', href: '/settings', icon: Settings },
+];
+
+export default function Sidebar() {
+  return (
+    <aside className="fixed left-0 top-0 w-64 h-screen bg-dark-900 border-r border-gold-500/30 flex flex-col">
+      {/* Logo */}
+      <div className="p-6 border-b border-gray-800">
+        <h1 className="text-2xl font-heading text-gold-400">
+          Gilded<span className="text-white">Hub</span>
+        </h1>
+        <p className="text-xs text-gray-500 mt-1">MMORPG Trading</p>
+      </div>
+
+      {/* Menu */}
+      <nav className="flex-1 p-4 space-y-2">
+        {menuItems.map((item) => {
+          const Icon = item.icon;
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:bg-dark-800 hover:text-gold-400 transition-all group"
+            >
+              <Icon className="w-5 h-5 group-hover:text-gold-400" />
+              <span className="font-medium">{item.name}</span>
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* User Section */}
+      <div className="p-4 border-t border-gray-800">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center font-bold">
+            U
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-bold text-white">User123</p>
+            <p className="text-xs text-green-400">● Online</p>
+          </div>
+          <LogOut className="w-5 h-5 text-gray-500" />
+        </div>
+      </div>
+    </aside>
+  );
+}

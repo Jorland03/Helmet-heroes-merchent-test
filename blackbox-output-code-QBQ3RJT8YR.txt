@@ -1,0 +1,47 @@
+// src/components/ui/MarketplaceGrid.tsx
+import ItemCard from './ItemCard';
+
+export default function MarketplaceGrid({ items, title }) {
+  return (
+    <div className="p-4 md:p-8">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl md:text-2xl font-heading text-white">{title}</h2>
+        
+        {/* Desktop Sort Dropdown - Hidden on Mobile */}
+        <select className="hidden md:block bg-dark-800 border border-gray-600 rounded px-3 py-2 text-sm">
+          <option>Newest First</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+          <option>Rarity: Legendary</option>
+        </select>
+      </div>
+
+      {/* Mobile Filter Chips */}
+      <div className="flex gap-2 overflow-x-auto pb-4 scrollbar-hide md:hidden">
+        {['All', 'Common', 'Rare', 'Epic', 'Legendary', 'Mythic'].map((filter) => (
+          <button
+            key={filter}
+            className="px-4 py-2 bg-dark-800 border border-gray-600 rounded-full text-sm whitespace-nowrap active:bg-gold-500 active:text-black"
+          >
+            {filter}
+          </button>
+        ))}
+      </div>
+
+      {/* Grid - 1 col mobile, 2 col tablet, 3 col desktop, 4 col large desktop */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
+        {items.map((item) => (
+          <ItemCard key={item._id} item={item} />
+        ))}
+      </div>
+
+      {/* Load More Button */}
+      <div className="mt-8 text-center md:hidden">
+        <button className="px-8 py-3 bg-dark-800 border border-gold-500 text-gold-400 rounded-lg">
+          Load More
+        </button>
+      </div>
+    </div>
+  );
+}

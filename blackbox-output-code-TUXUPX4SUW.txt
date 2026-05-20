@@ -1,0 +1,47 @@
+// src/components/layout/BottomNav.tsx
+import Link from 'next/link';
+import { Home, ShoppingBag, Plus, Search, User } from 'lucide-react';
+
+const navItems = [
+  { name: 'Home', href: '/', icon: Home },
+  { name: 'Market', href: '/market/pets', icon: ShoppingBag },
+  { name: 'Sell', href: '/sell', icon: Plus, primary: true },
+  { name: 'Wanted', href: '/wanted', icon: Search },
+  { name: 'Profile', href: '/profile', icon: User },
+];
+
+export default function BottomNav() {
+  return (
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-dark-900/95 backdrop-blur border-t border-gray-700 md:hidden">
+      <div className="flex justify-around items-center h-16">
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          const isPrimary = item.primary;
+          
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={`flex flex-col items-center justify-center flex-1 h-full ${
+                isPrimary 
+                  ? 'text-gold-400 -mt-4' 
+                  : 'text-gray-400'
+              }`}
+            >
+              {isPrimary ? (
+                <div className="w-12 h-12 bg-gold-500 rounded-full flex items-center justify-center shadow-lg shadow-gold-500/30 -translate-y-2">
+                  <Icon className="w-6 h-6 text-black" />
+                </div>
+              ) : (
+                <Icon className="w-6 h-6" />
+              )}
+              <span className={`text-xs mt-1 ${isPrimary ? 'text-gold-400' : ''}`}>
+                {item.name}
+              </span>
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
